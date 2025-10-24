@@ -2,17 +2,21 @@ import { Schema, model } from "mongoose";
 import bcrypt from 'bcrypt';
 
 const userSchema = new Schema({
-    email: { //TODO 
+    username : {
         type: String,
-        // match: [/^\S+@\S+\.\S+$/, 'Invalid email string'], 
+        required: [true, 'Name is required'],
+        minLength: [2, 'The username should be minimum 2 characters long'],
+        maxLength: [20, 'The username should be maximum 20 characters long'],
+    },
+    email: {
+        type: String,
         required: [true, 'Email is required'],
-        // minLength: [10, 'Email should be at least 10 char long'],
+        minLength: [10, 'The email should be at least 10 characters long'],
         unique: true,
     },
-    password: { //TODO 
+    password: { 
         type: String,
-        // match: [/^[A-Za-z0-9]+$/, 'Password consist only of English letters and digits'],
-        // minLength: [6, 'Minimu length of password is 6 char'],
+        minLength: [4, 'The password should be at least 4 characters long'],
         required: [true, 'Please enter password'],
     }
 });

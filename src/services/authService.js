@@ -8,11 +8,11 @@ export default {
             throw new Error('Password Missmatch!');
         }
 
-        const user = await User.findOne({ email: userData.email });
+        // const user = await User.findOne({ email: userData.email });
 
-        if (user) {
-            throw new Error('User already exists!');
-        }
+        // if (user) {
+        //     throw new Error('User already exists!');
+        // }
 
         const newUser =  await User.create(userData);
         const token = await generateAuthToken(newUser);
@@ -20,8 +20,8 @@ export default {
         return token;
     },
 
-    async login(email, password) {
-        const user = await User.findOne({ email });
+    async login(username, password) {
+        const user = await User.findOne({ username });
         if (!user) {
             throw new Error('User or password are not matching!');
         }

@@ -27,17 +27,17 @@ authController.get('/login', isGuest, (req, res) => {
 });
 
 authController.post('/login', isGuest, async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
     try {
-        const token = await authService.login(email, password);
+        const token = await authService.login(username, password);
         res.cookie(process.env.AUTH_COOKIE_NAME, token);
 
         res.redirect('/');
         // res.tempRedirect('/', {error: 'You have logged in succsessfuly'}) // from tempData middleware
     } catch (err) {
         const errorMessage = getErrorMessage(err);
-        res.status(400).render('auth/login', { error: errorMessage, user: { email } });
+        res.status(400).render('auth/login', { error: errorMessage, user: { username } });
     }
 
 });
