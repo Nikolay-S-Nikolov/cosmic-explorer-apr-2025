@@ -129,7 +129,4 @@
   - [x] add is owner middleware
   - [x] add planet edit logic
   - [x] add planet delete logic
-  - [ ] add Bonus logic
-
-Bonuses
- - [ ] sort by createdAt
+  - [x] add search logic

@@ -120,4 +120,17 @@ planetController.get('/:planetId/delete', isAuth, isOwner, async (req, res) => {
     }
 })
 
+planetController.get('/search', async (req, res) => {
+    const filter = req.query;
+    console.log(filter)
+
+    try {
+        const planets = await planetService.getAll(filter);
+        res.render('planets/search', { planets, filter });
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        res.status(400).render('404', { error: errorMessage, });
+    }
+})
+
 export default planetController;

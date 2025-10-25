@@ -1,3 +1,4 @@
+import { Query } from "mongoose";
 import Planet from "../models/Planet.js";
 
 
@@ -7,8 +8,18 @@ export default {
         return Planet.create(formData);
     },
 
-    getAll() {
-        return Planet.find();
+    getAll(filter={}) {
+        let query = Planet.find();
+
+        if (filter.name){
+            query = query.find({ name: { $regex: filter.name, $options: 'i' } })
+        }
+
+        if (filter.solarSystem){
+            query = query.find({ solarSystem: { $regex: filter.solarSystem, $options: 'i' } })
+        }
+
+        return query;
     },
 
     getOne(planetId) {
