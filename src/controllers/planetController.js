@@ -36,13 +36,27 @@ planetController.post('/create', async (req, res) => {
 planetController.get('/catalog', async (req, res) => {
     try {
         const planets = await planetService.getAll();
-        res.render('planets/catalog', {planets:[]});
+        res.render('planets/catalog', { planets });
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        res.status(400).render('404', { error: errorMessage, });
+    }
+})
+
+planetController.get('/:planetId/details', async (req, res) => {
+    const planetId = req.params.planetId;
+    const userId = req.user?.id;
+
+    try {
+        const planet = await planetService.getOne(planetId);
+        const isCreator = planet.owner.equals(userId);
+        const isLiked = planet.likedList.some(l => l.equals(userId));
+        res.render('planets/details', { planet, isCreator, isLiked });
     } catch (err) {
         const errorMessage = getErrorMessage(err);
         res.status(400).render('404', { error: errorMessage, });
     }
 
 })
-
 
 export default planetController;

@@ -9,5 +9,9 @@ export default {
 
     getAll(){
         return Planet.find();
-    }
+    },
+
+    getOne(planetId){
+        return Planet.findById(planetId);
+    },
 };
