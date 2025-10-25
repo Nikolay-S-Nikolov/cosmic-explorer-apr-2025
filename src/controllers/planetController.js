@@ -33,4 +33,16 @@ planetController.post('/create', async (req, res) => {
     }
 })
 
+planetController.get('/catalog', async (req, res) => {
+    try {
+        const planets = await planetService.getAll();
+        res.render('planets/catalog', {planets:[]});
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        res.status(400).render('404', { error: errorMessage, });
+    }
+
+})
+
+
 export default planetController;

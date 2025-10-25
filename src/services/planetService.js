@@ -6,4 +6,8 @@ export default {
         formData.owner = userId;
         return Planet.create(formData);
     },
+
+    getAll(){
+        return Planet.find();
+    }
 };

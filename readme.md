@@ -122,8 +122,8 @@
   - [x] Add create Planet page
   - [x] Add planetController rout
   - [x] Add planetController create rout,refactor post form, add planetService
-  - [ ] Add New collection page
-  - [ ] Add New collection rout, service and dynamic data
+  - [x] Add planet collection page
+  - [x] Add planet collection rout, service and dynamic data
   - [ ] add New details page, details rout and service
   - [ ] add like New rout and service
   - [ ] add is owner middleware
