@@ -30,13 +30,17 @@ export default {
             throw new Error('You have already liked this planet');
         }
 
-        planet.likedList.push(userId);        
+        planet.likedList.push(userId);
         await planet.save();
 
         return planet;
     },
 
-    edit(planetId, formData){
-        return Planet.findByIdAndUpdate(planetId,formData,{runValidators:true});
+    edit(planetId, formData) {
+        return Planet.findByIdAndUpdate(planetId, formData, { runValidators: true });
+    },
+
+    delete(planetId) {
+        return Planet.findByIdAndDelete(planetId)
     },
 };

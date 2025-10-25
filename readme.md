@@ -128,7 +128,7 @@
   - [x] add like planet rout and service
   - [x] add is owner middleware
   - [x] add planet edit logic
-  - [ ] add planet delete logic
+  - [x] add planet delete logic
   - [ ] add Bonus logic
 
 Bonuses

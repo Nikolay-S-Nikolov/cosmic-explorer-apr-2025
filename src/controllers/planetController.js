@@ -95,7 +95,7 @@ planetController.post('/:planetId/edit', isAuth, isOwner, async (req, res) => {
 
     try {
         await planetService.edit(planetId, formData);
-        res.redirect(`/planets/${planetId}/details`)
+        res.redirect(`/planets/${planetId}/details`);
     } catch (err) {
         const selectedType = selectType(formData.type);
         const haveRings = selectRings(formData.rings);
@@ -106,6 +106,17 @@ planetController.post('/:planetId/edit', isAuth, isOwner, async (req, res) => {
             selectedType,
             haveRings,
         });
+    }
+})
+
+planetController.get('/:planetId/delete', isAuth, isOwner, async (req, res) => {
+        const planetId = req.params.planetId;
+    try {
+        await planetService.delete(planetId);
+        res.redirect('/planets/catalog');
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        res.status(400).render('404', { error: errorMessage, });
     }
 })
 
