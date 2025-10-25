@@ -3,6 +3,7 @@ import { selectType } from "../utils/planetTypeUtils.js";
 import { selectRings } from "../utils/ringsUtils.js";
 import { getErrorMessage } from "../utils/errorUtils.js";
 import planetService from "../services/planetService.js";
+import { isAuth } from "../middlewares/authMiddleware.js";
 
 const planetController = Router();
 
@@ -52,6 +53,20 @@ planetController.get('/:planetId/details', async (req, res) => {
         const isCreator = planet.owner.equals(userId);
         const isLiked = planet.likedList.some(l => l.equals(userId));
         res.render('planets/details', { planet, isCreator, isLiked });
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        res.status(400).render('404', { error: errorMessage, });
+    }
+
+})
+
+planetController.get('/:planetId/like', isAuth, async (req, res) => {
+    const planetId = req.params.planetId;
+    const userId = req.user.id;
+
+    try {
+        await planetService.like(planetId,userId);
+        res.redirect(`/planets/${planetId}/details`);
     } catch (err) {
         const errorMessage = getErrorMessage(err);
         res.status(400).render('404', { error: errorMessage, });
