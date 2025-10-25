@@ -13,7 +13,7 @@
     <label for="type">Type:</label>
     <select id="type" name="type">
         {{#each selectedType}}
-        <option value="{{value}}">{{value}}</option>
+        <option value="{{value}}" {{#if selected}}selected{{/if}}>{{value}}</option>
         {{/each}}
     </select>
 
@@ -26,7 +26,7 @@
     <label for="rings">Rings:</label>
     <select id="rings" name="rings">
         {{#each haveRings}}
-        <option value="{{value}}">{{value}}</option>
+        <option value="{{value}}" {{#if selected}}selected{{/if}}>{{value}}</option>
         {{/each}}
     </select>
 

@@ -1,13 +1,36 @@
 import { Router } from "express";
 import { selectType } from "../utils/planetTypeUtils.js";
 import { selectRings } from "../utils/ringsUtils.js";
+import { getErrorMessage } from "../utils/errorUtils.js";
+import planetService from "../services/planetService.js";
 
 const planetController = Router();
 
 planetController.get('/create', (req, res) => {
     const selectedType = selectType('---');
     const haveRings = selectRings('---');
-    res.render('planets/create', {selectedType, haveRings});
+    res.render('planets/create', { selectedType, haveRings });
+})
+
+
+planetController.post('/create', async (req, res) => {
+    const formData = req.body;
+    const userId = req.user.id;
+
+    try {
+        await planetService.create(formData, userId);
+        res.redirect('/planets/catalog');
+    } catch (err) {
+        const selectedType = selectType(formData.type);
+        const haveRings = selectRings(formData.rings);
+        const errorMessage = getErrorMessage(err);
+        res.status(400).render('planets/create', {
+            error: errorMessage,
+            planet: formData,
+            selectedType,
+            haveRings,
+        });
+    }
 })
 
 export default planetController;

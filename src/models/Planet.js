@@ -21,7 +21,7 @@ const planetSchema = new Schema({
     solarSystem: {
         type: String,
         required: [true, 'Solar System field is required'],
-        minLength: [5, 'The Solar System should be at least 2 characters'],
+        minLength: [2, 'The Solar System should be at least 2 characters'],
     },
 
     type: {

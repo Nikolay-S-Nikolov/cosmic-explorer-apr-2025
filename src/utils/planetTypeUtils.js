@@ -1,6 +1,6 @@
 export function selectType(type) {
     const allTypes = [
-        { value: '---' },
+        { value: '---', },
         { value: 'Inner' },
         { value: 'Outer' },
         { value: 'Dwarf' },
