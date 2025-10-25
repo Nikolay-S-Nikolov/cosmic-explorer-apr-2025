@@ -126,9 +126,9 @@
   - [x] Add planet collection rout, service and dynamic data
   - [x] add planet details page, details rout and service
   - [x] add like planet rout and service
-  - [ ] add is owner middleware
-  - [ ] add New edit logic
-  - [ ] add New delete logic
+  - [x] add is owner middleware
+  - [ ] add planet edit logic
+  - [ ] add planet delete logic
   - [ ] add Bonus logic
 
 Bonuses
