@@ -127,7 +127,7 @@
   - [x] add planet details page, details rout and service
   - [x] add like planet rout and service
   - [x] add is owner middleware
-  - [ ] add planet edit logic
+  - [x] add planet edit logic
   - [ ] add planet delete logic
   - [ ] add Bonus logic
 

@@ -31,8 +31,12 @@ export default {
         }
 
         planet.likedList.push(userId);        
-        await planet.save()
+        await planet.save();
 
-        return planet
+        return planet;
+    },
+
+    edit(planetId, formData){
+        return Planet.findByIdAndUpdate(planetId,formData,{runValidators:true});
     },
 };

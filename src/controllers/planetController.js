@@ -4,6 +4,7 @@ import { selectRings } from "../utils/ringsUtils.js";
 import { getErrorMessage } from "../utils/errorUtils.js";
 import planetService from "../services/planetService.js";
 import { isAuth } from "../middlewares/authMiddleware.js";
+import { isOwner } from "../middlewares/planetMIddleware.js";
 
 const planetController = Router();
 
@@ -65,13 +66,47 @@ planetController.get('/:planetId/like', isAuth, async (req, res) => {
     const userId = req.user.id;
 
     try {
-        await planetService.like(planetId,userId);
+        await planetService.like(planetId, userId);
         res.redirect(`/planets/${planetId}/details`);
     } catch (err) {
         const errorMessage = getErrorMessage(err);
         res.status(400).render('404', { error: errorMessage, });
     }
 
+})
+
+planetController.get('/:planetId/edit', isAuth, isOwner, async (req, res) => {
+    const planetId = req.params.planetId;
+
+    try {
+        const planet = await planetService.getOne(planetId);
+        const selectedType = selectType(planet.type);
+        const haveRings = selectRings(planet.rings);
+        res.render('planets/edit', { planet, selectedType, haveRings });
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        res.status(400).render('404', { error: errorMessage, });
+    }
+})
+
+planetController.post('/:planetId/edit', isAuth, isOwner, async (req, res) => {
+    const planetId = req.params.planetId;
+    const formData = req.body;
+
+    try {
+        await planetService.edit(planetId, formData);
+        res.redirect(`/planets/${planetId}/details`)
+    } catch (err) {
+        const selectedType = selectType(formData.type);
+        const haveRings = selectRings(formData.rings);
+        const errorMessage = getErrorMessage(err);
+        res.status(400).render('planets/edit', {
+            error: errorMessage,
+            planet: formData,
+            selectedType,
+            haveRings,
+        });
+    }
 })
 
 export default planetController;
